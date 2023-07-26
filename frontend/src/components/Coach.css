@@ -1,0 +1,48 @@
+.coaches .coach:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.coach {
+  align-items: center;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  color: var(--text);
+  display: flex;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.coach:hover,
+.coach:visited {
+  color: var(--text);
+}
+
+.coach:hover {
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.coach-name {
+  margin: 0;
+}
+
+.coach .img {
+  border-radius: 50%;
+  height: 75px;
+  object-fit: cover;
+  width: 75px;
+  margin-right: 1rem;
+}
+
+.coach-page {
+  min-width: 600px;
+  text-align: center;
+}
+
+.coach-page .img {
+  border-radius: 50%;
+  height: 150px;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  width: 150px;
+}

@@ -1,0 +1,51 @@
+:root {
+  --card-bg: #efefef;
+  --border-radius: 0.5rem;
+  --card-padding: 2rem;
+  --translucent: rgba(0, 0, 0, 0.15);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.empty-state {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+}
+
+.empty-state-title {
+  font-size: 1.25rem;
+}
+
+form {
+  text-align: left;
+}
+
+form label {
+  color: var(--border);
+}
+
+.button.flat {
+  background-color: transparent;
+  color: var(--text)
+}
+
+.button.flat:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+section .section-title {
+  margin: 0 0 1rem;
+}

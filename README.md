@@ -32,3 +32,20 @@ Appointment
   - slot_id (fk)
   - satisfaction
   - notes
+
+## Setup
+```
+bundle install
+rails db:setup
+rails db:seed
+
+cd frontend
+yarn add vite
+yarn install
+```
+
+## Run
+```
+bin/dev
+```
+[Open App](http://localhost:3001)

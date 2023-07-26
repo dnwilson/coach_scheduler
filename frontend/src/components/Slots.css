@@ -1,0 +1,23 @@
+.slots {
+  display: flex;
+  text-align: left;
+}
+
+.slots .slot:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.slots .slot {
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+  font-size: 0.75rem;
+  padding: 1rem 1.5rem;
+}
+
+.slot.link {
+  cursor: pointer;
+}
+
+.slot.link:hover {
+  background-color: var(--translucent);
+}

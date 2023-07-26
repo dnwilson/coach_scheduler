@@ -1,13 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { AppContext } from "./AppContext"
+import { CoachList, CoachNew, CoachShow } from "./components/CoachList"
+import { useEffect, useState } from 'react'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 
-function App() {
+function App() { 
+  const [coach, setCoach] = useState();
+  const [coaches, setCoaches] = useState([]);
+  const [page, setPage] = useState("home")
+
+  const Home = () => {
+    return(
+      <div className="home">
+        <h1>Welcome</h1>
+        <CoachList />
+      </div>
+    )
+  }
+
   return (
-    <>
-      <h1>Hello World!</h1>
-    </>
+    <AppContext.Provider value={{coach, setCoach, coaches, setCoaches, page, setPage}}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/coaches" element={<CoachList />} />
+        <Route path="/coaches/new" element={<CoachNew />} />
+        <Route path="/coaches/:id" element={<CoachShow />} />
+      </Routes>
+    </AppContext.Provider>
   )
 }
 

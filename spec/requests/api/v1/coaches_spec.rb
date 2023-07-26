@@ -6,14 +6,6 @@ RSpec.describe "Api::V1::Coaches", type: :request do
 
   describe "POST /api/v1/coaches/create" do
     context "with valid parameters" do
-      let(:response_json) do
-        coach = Coach.last
-        {
-          id: coach.id,
-          name: coach.name,
-          image: nil
-        }
-      end
       it "creates a new Coach" do
         expect {
           post api_v1_coaches_url,
@@ -26,7 +18,7 @@ RSpec.describe "Api::V1::Coaches", type: :request do
              params: { coach: valid_attributes }, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
-        expect(response.body).to match(response_json.to_json)
+        expect(response.body).to match(response_json(Coach.last))
       end
     end
 
@@ -53,6 +45,28 @@ RSpec.describe "Api::V1::Coaches", type: :request do
       coach = Coach.create! valid_attributes
       get api_v1_coach_url(coach), as: :json
       expect(response).to be_successful
+      expect(response.content_type).to match(a_string_including("application/json"))
+      expect(response.body).to match(response_json(Coach.last))
     end
+  end
+
+  describe "GET /api/v1/coaches" do
+    it "renders a successful response" do
+      coach = Coach.create! valid_attributes
+      get api_v1_coaches_url(coach), as: :json
+      expect(response).to be_successful
+      expect(response.content_type).to match(a_string_including("application/json"))
+      # expect(response.body).to match(response_json(Coach.last))
+    end
+  end
+
+  def response_json(coach)
+    {
+      id: coach.id,
+      name: coach.name,
+      initials: coach.initials,
+      image: nil,
+      slots: coach.slots,
+    }.to_json
   end
 end

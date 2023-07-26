@@ -8,12 +8,17 @@ class Slot < ApplicationRecord
   validate :available_slot
 
   scope :for_range, ->(start_at, end_at, coach) {
-    comparison_string = "'#{start_at}' AND '#{start_at + 2.hours}'"
     for_coach(coach)
-    .where("start_at BETWEEN #{comparison_string} OR end_at BETWEEN #{comparison_string}")
-  }
+      .where(start_at: start_at..end_at)
+      .or(where(end_at: start_at..end_at))  }
   scope :for_coach, ->(coach) { where(coach: coach) }
 
+  def formatted_time
+    time_format = "%l:%M%P"
+    datetime_format = "%b %d, %Y #{time_format}"
+    end_format = end_at.day != start_at.day ? datetime_format : time_format
+    [start_at.strftime(datetime_format), end_at.strftime(end_format)].join(" - ")
+  end
 
   private
 
