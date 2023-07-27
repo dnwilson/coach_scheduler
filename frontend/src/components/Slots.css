@@ -3,6 +3,10 @@
   text-align: left;
 }
 
+.slots:has(.empty-state) {
+  display: block;
+}
+
 .slots .slot:not(:last-child) {
   margin-right: 0.5rem;
 }

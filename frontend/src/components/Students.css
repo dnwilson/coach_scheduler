@@ -1,0 +1,48 @@
+.students .student:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.student {
+  align-items: center;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  color: var(--text);
+  display: flex;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.student:hover,
+.student:visited {
+  color: var(--text);
+}
+
+.student:hover {
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.student-name {
+  margin: 0;
+}
+
+.student .img {
+  border-radius: 50%;
+  height: 75px;
+  object-fit: cover;
+  width: 75px;
+  margin-right: 1rem;
+}
+
+.student-page {
+  min-width: 600px;
+  text-align: center;
+}
+
+.student-page .img {
+  border-radius: 50%;
+  height: 150px;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  width: 150px;
+}

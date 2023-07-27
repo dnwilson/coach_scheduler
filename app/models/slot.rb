@@ -1,10 +1,11 @@
 class Slot < ApplicationRecord
   belongs_to :coach
+  has_one :appointment
 
   before_validation :setup_end_at
 
-  validates_time :start_at, on_or_after: -> { Time.current }
-  validates_time :end_at, is_at: :valid_end_time
+  validates_datetime :start_at, after: -> { Time.current }
+  validates_datetime :end_at, is_at: :valid_end_time
   validate :available_slot
 
   scope :for_range, ->(start_at, end_at, coach) {
@@ -12,6 +13,8 @@ class Slot < ApplicationRecord
       .where(start_at: start_at..end_at)
       .or(where(end_at: start_at..end_at))  }
   scope :for_coach, ->(coach) { where(coach: coach) }
+  scope :available, -> { where.missing(:appointment) }
+  scope :unavailable, -> { joins(:appointment) }
 
   def formatted_time
     time_format = "%l:%M%P"

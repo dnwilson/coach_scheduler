@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Modal from "./Modal";
 
 const ModalForm = ({title, show, toggle, children}) => {

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
   private
 
   def set_time_zone
-    timezone = request.headers["X-TimeZone"] || "America/New_York"
+    timezone = request.headers["X-TimeZone"]
     Time.use_zone(timezone) { yield }
   end
 end

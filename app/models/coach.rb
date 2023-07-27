@@ -1,10 +1,6 @@
 class Coach < ApplicationRecord
-  has_one_attached :image
+  include Personifiable
+
   has_many :slots, dependent: :destroy
-
-  validates :name, presence: true
-
-  def initials
-    name.split(" ").compact_blank.map(&:first).join("").upcase
-  end
+  has_many :appointments, through: :slots
 end

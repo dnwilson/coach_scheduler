@@ -16,4 +16,8 @@ const get = (path) => {
   return http.get(path)
 }
 
-export { get, post };
+const patch = (path, data) => {
+  return http.patch(path, data)
+}
+
+export { get, post, patch };

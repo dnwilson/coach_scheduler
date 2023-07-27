@@ -3,11 +3,13 @@ import { get } from "../services/api"
 import { AppContext } from "../AppContext";
 import { useEffect, useContext, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { SlotList } from "./Slots";
+import { SlotList, SlotForm } from "./Slots";
+import { AppointmentList } from "./Appointment"
+import ModalForm from "./ModalForm";
 
 const Coach = ({coach}) => {
   return(
-    <Link to={`coaches/${coach.id}`} className="coach">
+    <Link to={`/coaches/${coach.id}`} className="coach">
       {
         coach.image
         ? <img src={coach.image} className="img" />
@@ -30,13 +32,22 @@ const CoachShow = () => {
   const { id } = useParams()
   const { coaches } = useContext(AppContext)
   const [coach, setCoach] = useState(coaches.find(item => item.id == id) || {})
+  const [appointments, setAppointments] = useState(coach.appointments || [])
+  const [modal, setModal] = useState(false)
+
+  const toggle = () => {
+    setModal(!modal)
+  }
 
   useEffect(() => {
+    console.log("Coach", coach)
     if (!coach.id) {
       get(`coaches/${id}`)
       .then((response) => response.data)
       .then((data) => {
         setCoach(data);
+        setAppointments(data.appointments)
+        console.log("Data", data)
       })
       .catch((error) => console.error(error));
     }
@@ -51,8 +62,14 @@ const CoachShow = () => {
           : <div className="img">{coach.initial}</div>
         }
         <h2 className="coach-name">{coach.name}</h2>
+
+        <ModalForm url={`/appointments`} title="Slot" show={modal} toggle={toggle}>
+          <SlotForm coach={coach} close={toggle} />
+        </ModalForm>
       </div>
       <SlotList coach={coach} />
+      <AppointmentList appointments={appointments.available} title="Upcoming" />
+      <AppointmentList appointments={appointments.completed} title="Completed" />
     </div>
   )
 }

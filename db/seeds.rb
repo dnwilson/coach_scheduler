@@ -20,3 +20,9 @@ Coach.destroy_all
   coach = Coach.create(name: Faker::Name.name)
   attach_image_to_record(coach.image)
 end
+
+Student.destroy_all
+10.times do
+  student = Student.create(name: Faker::Name.name)
+  attach_image_to_record(student.image)
+end

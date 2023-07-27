@@ -8,6 +8,7 @@
 body {
   display: flex;
   justify-content: center;
+  padding: 3rem 0;
 }
 
 .mt-0 {
@@ -46,6 +47,25 @@ form label {
   background-color: rgba(0, 0, 0, 0.15);
 }
 
+section {
+  max-width: 600px;
+}
+
 section .section-title {
   margin: 0 0 1rem;
+}
+
+.user-type {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.user-type .button:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.user-type .button {
+  font-size: 1.5rem;
+  padding: 2rem;
 }

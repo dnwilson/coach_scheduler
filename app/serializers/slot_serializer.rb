@@ -1,8 +1,11 @@
-class SlotSerializer
-  include JSONAPI::Serializer
+class SlotSerializer < ApplicationSerializer
   attributes :id, :start_at, :end_at, :formatted_time
 
-  def self.serialize(slot)
-    new(slot).serializable_hash[:data][:attributes]
+  attribute :appointment do |object|
+    AppointmentSerializer.serialize(object.appointment)
+  end
+
+  attribute :available do |object|
+    object.appointment.blank?
   end
 end

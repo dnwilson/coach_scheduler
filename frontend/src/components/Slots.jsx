@@ -4,11 +4,38 @@ import { AppContext } from "../AppContext";
 import { useContext, useState, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import ModalForm from "./ModalForm";
-import List from "./List";
+import { List } from "./List";
 
 const Slot = ({ slot, link }) => {
+  const [currentSlot, setCurrentSlot] = useState(slot)
+  const { currentUser } = useContext(AppContext)
+
+  const submitToAPI = () => {
+    post("appointments", {
+      slot_id: currentSlot.id,
+      student_id: currentUser.id
+    })
+      .then((response) => response.data)
+      .then((data) => {
+        setCurrentSlot({})
+        console.log("Data", data)
+      })
+      .catch((error) => console.error(error));
+  }
+
+  const classNames = () => {
+    return `slot ${link ? "link" : ""} ${currentSlot.slot_id ? "filled" : "open"}`
+  }
+
   return(
-    <div className={`slot ${link ? "link" : ""} ${slot.appointment ? "filled" : "open"}`}>{slot.formatted_time}</div>
+    <>
+      {
+        slot &&
+          link
+            ? <a className={classNames()} onClick={submitToAPI}>{currentSlot.formatted_time}</a>
+            : <div className={classNames()}>{currentSlot.formatted_time}</div>
+      }
+    </>
   )
 }
 
@@ -29,7 +56,6 @@ const SlotForm = ({ coach, close }) => {
     post("slots", data)
       .then((response) => response.data)
       .then((data) => {
-        console.log("Response", response)
         setCoach(data.coach)
         close()
       })
@@ -51,7 +77,8 @@ const SlotForm = ({ coach, close }) => {
   )
 }
 
-const SlotList = ({coach}) => {
+const SlotList = ({coach, title}) => {
+  title = title || "Available Slots"
   const [modal, setModal] = useState(false)
 
   const toggle = () => {
@@ -60,7 +87,7 @@ const SlotList = ({coach}) => {
 
   return(
     <List items={coach.slots?.map(slot => <Slot key={slot.id} slot={slot} />) }
-      title="Available Slots">
+      title={title}>
       <ModalForm url="/slots" title="Slot" show={modal} toggle={toggle}>
         <SlotForm coach={coach} close={toggle} />
       </ModalForm>
@@ -68,5 +95,4 @@ const SlotList = ({coach}) => {
   )
 }
 
-
-export { SlotList, SlotForm }
+export { SlotList, SlotForm, Slot }

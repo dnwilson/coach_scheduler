@@ -1,0 +1,51 @@
+.appointments {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+.appointments:has(.empty-state) {
+  display: block;
+}
+
+.appointments .appointment:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.appointments .appointment {
+  border-radius: var(--border-radius);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+}
+
+.appointments .appointment {
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.appointments .appointment:hover {
+  background-color: var(--translucent);
+}
+
+.appointments .appointment-info {
+  margin-left: 1rem;
+}
+
+.appointment.link {
+  cursor: pointer;
+}
+
+.appointment.link:hover {
+  background-color: var(--translucent);
+}
+
+.student-image {
+  border-radius: 50%;
+  height: 50px;
+  object-fit: cover;
+  width: 50px;
+}

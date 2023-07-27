@@ -1,24 +1,25 @@
-const EmptyState = ({children}) => {
+const EmptyState = ({title, children}) => {
   return(
     <div className="empty-state">
-      <div className="empty-state-title">Nothing to display</div>
+      <div className="empty-state-title">No {title.toLowerCase()}</div>
       { children }
     </div>
   )
 }
 
-const List = ({ title, items, children }) => {
+const List = ({ title, hideTitle, items, children }) => {
+  const formattedTitle = title.toLowerCase()
   return(
-    <section id="slots">
-      <h4 className="section-title">{title}</h4>
-      <div className="slots">
+    <section id={formattedTitle}>
+      { !hideTitle && <h4 className="section-title">{title}</h4> }
+      <div className={formattedTitle}>
         { items?.length > 0
           ? items
-          : <EmptyState children={children} />
+          : <EmptyState children={children} title={formattedTitle} />
         }
       </div>
     </section>
   )
 }
 
-export default List;
+export { List, EmptyState }
